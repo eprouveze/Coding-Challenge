@@ -1,38 +1,22 @@
-# Core FastAPI dependencies
+# Core FastAPI - minimal working set
 fastapi==0.104.1
 uvicorn[standard]==0.24.0
 
 # Database
 sqlalchemy==2.0.23
-alembic==1.13.0
-
-# Validation
 pydantic==2.5.0
 pydantic-settings==2.1.0
 
-# Authentication
-python-jose[cryptography]==3.3.0
-passlib[bcrypt]==1.7.4
-python-multipart==0.0.6
-
-# Utilities
-email-validator==2.1.0
+# Basic utilities
 python-dotenv==1.0.0
-aiofiles==23.2.1
 
-# Optional dependencies (for production)
-redis==5.0.1
-celery==5.3.4
-websockets==12.0
-
-# Development and testing
+# Testing
 pytest==7.4.3
-pytest-asyncio==0.21.1
-pytest-cov==4.1.0
 httpx==0.25.2
 
-# Production server
-gunicorn==21.2.0
+# Authentication (optional)
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
 
-# Database drivers
+# Database driver
 psycopg2-binary==2.9.9
