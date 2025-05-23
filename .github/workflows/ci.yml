@@ -51,11 +51,9 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: '18'
-        cache: 'npm'
-        cache-dependency-path: frontend/package-lock.json
     
     - name: Install dependencies
-      run: npm ci
+      run: npm install
     
     - name: Run type check
       run: npm run type-check
@@ -64,7 +62,7 @@ jobs:
       run: npm run lint
     
     - name: Run tests
-      run: npm test -- --coverage
+      run: npm test -- --run --coverage
     
     - name: Build
       run: npm run build
@@ -100,7 +98,7 @@ jobs:
     
     - name: Install frontend dependencies
       working-directory: frontend
-      run: npm ci
+      run: npm install
     
     - name: Run Cypress tests
       working-directory: frontend
