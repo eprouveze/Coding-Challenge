@@ -26,7 +26,7 @@ import { Edit, Delete } from '@mui/icons-material'
 import { format } from 'date-fns'
 import { useForm, Controller } from 'react-hook-form'
 import { eventsService } from '@/services/events'
-import { EventCreateData, EventCategory } from '@/types'
+import { EventCreateData } from '@/types'
 import { useAuthStore } from '@/store/authStore'
 
 export default function EventManagement() {
@@ -35,7 +35,7 @@ export default function EventManagement() {
   const [openDialog, setOpenDialog] = useState(false)
   const [editingEvent, setEditingEvent] = useState<any>(null)
   
-  const { data: events, isLoading } = useQuery({
+  const { data: events } = useQuery({
     queryKey: ['adminEvents'],
     queryFn: () => eventsService.getEvents({ upcoming_only: false }),
   })

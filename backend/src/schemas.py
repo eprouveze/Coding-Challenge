@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr, Field, validator
+from pydantic import BaseModel, EmailStr, Field, ConfigDict
 from datetime import datetime
 from typing import Optional, List
 from .models import EventCategory, AttendanceStatus, UserRole
@@ -23,8 +23,7 @@ class User(UserBase):
     is_active: bool
     created_at: datetime
     
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 class UserInDB(User):
     hashed_password: str
@@ -64,8 +63,7 @@ class Event(EventBase):
     current_attendees: int = 0
     available_spots: int = 0
     
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 class AttendeeBase(BaseModel):
     event_id: int
@@ -85,8 +83,7 @@ class Attendee(AttendeeBase):
     waitlist_position: Optional[int] = None
     user: User
     
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 class EventWithAttendees(Event):
     attendees: List[Attendee] = []

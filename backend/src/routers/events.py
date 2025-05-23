@@ -14,7 +14,7 @@ async def create_event(
     db: Session = Depends(get_db),
     current_user: models.User = Depends(auth.require_role([models.UserRole.ADMIN, models.UserRole.ORGANIZER]))
 ):
-    db_event = models.Event(**event.dict(), organizer_id=current_user.id)
+    db_event = models.Event(**event.model_dump(), organizer_id=current_user.id)
     db.add(db_event)
     db.commit()
     db.refresh(db_event)
@@ -86,7 +86,7 @@ async def update_event(
     if current_user.role == models.UserRole.ORGANIZER and event.organizer_id != current_user.id:
         raise HTTPException(status_code=403, detail="Not authorized to update this event")
     
-    update_data = event_update.dict(exclude_unset=True)
+    update_data = event_update.model_dump(exclude_unset=True)
     for field, value in update_data.items():
         setattr(event, field, value)
     

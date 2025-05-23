@@ -1,4 +1,5 @@
 import pytest
+from unittest.mock import patch
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -14,6 +15,13 @@ engine = create_engine(
     connect_args={"check_same_thread": False}
 )
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+# Mock Celery tasks
+@pytest.fixture(autouse=True)
+def mock_celery_tasks():
+    with patch('src.tasks.process_waitlist.delay') as mock_task:
+        mock_task.return_value = None
+        yield mock_task
 
 @pytest.fixture(scope="function")
 def db():

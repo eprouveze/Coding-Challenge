@@ -19,14 +19,13 @@ import {
   DialogContent,
   DialogActions
 } from '@mui/material'
-import { CheckCircle, Cancel } from '@mui/icons-material'
+import { CheckCircle } from '@mui/icons-material'
 import { format } from 'date-fns'
 import { eventsService } from '@/services/events'
 import { useAuthStore } from '@/store/authStore'
 
 export default function EventDetailPage() {
   const { id } = useParams<{ id: string }>()
-  const navigate = useNavigate()
   const queryClient = useQueryClient()
   const { user, isAuthenticated } = useAuthStore()
   const [openDialog, setOpenDialog] = useState(false)

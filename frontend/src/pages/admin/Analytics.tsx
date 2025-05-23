@@ -4,8 +4,7 @@ import {
   Paper,
   Typography,
   Box,
-  CircularProgress,
-  Alert
+  CircularProgress
 } from '@mui/material'
 import {
   Chart as ChartJS,
