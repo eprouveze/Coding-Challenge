@@ -33,7 +33,7 @@ export default function RegisterPage() {
   const onSubmit = async (data: RegisterFormData) => {
     try {
       setError(null)
-      const { confirmPassword, ...registerData } = data
+      const { confirmPassword: _, ...registerData } = data
       await authService.register(registerData)
       navigate('/login')
     } catch (err: any) {
