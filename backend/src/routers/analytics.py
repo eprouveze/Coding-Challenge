@@ -41,7 +41,7 @@ async def get_event_statistics(
         func.count(models.Event.id)
     ).group_by(models.Event.category).all()
     
-    category_dict = {str(category): count for category, count in events_by_category}
+    category_dict = {category.value: count for category, count in events_by_category}
     
     upcoming_events = db.query(func.count(models.Event.id)).filter(
         models.Event.date >= datetime.utcnow()
@@ -74,7 +74,7 @@ async def get_user_statistics(
         func.count(models.User.id)
     ).group_by(models.User.role).all()
     
-    role_dict = {str(role): count for role, count in users_by_role}
+    role_dict = {role.value: count for role, count in users_by_role}
     
     active_users = db.query(func.count(models.User.id)).filter(
         models.User.is_active == True
@@ -112,10 +112,10 @@ async def get_event_specific_statistics(
         models.Attendee.event_id == event_id
     ).group_by(models.Attendee.status).all()
     
-    status_dict = {str(status): count for status, count in attendee_stats}
+    status_dict = {status.value: count for status, count in attendee_stats}
     
-    checked_in_count = status_dict.get(str(models.AttendanceStatus.CHECKED_IN), 0)
-    registered_count = status_dict.get(str(models.AttendanceStatus.REGISTERED), 0)
+    checked_in_count = status_dict.get(models.AttendanceStatus.CHECKED_IN.value, 0)
+    registered_count = status_dict.get(models.AttendanceStatus.REGISTERED.value, 0)
     total_confirmed = checked_in_count + registered_count
     
     attendance_rate = (total_confirmed / event.capacity * 100) if event.capacity > 0 else 0
